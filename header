@@ -1,0 +1,5 @@
+#!/bin/sh
+#tdmctl: a tool to configure tdm
+
+CONFDIR="$HOME/.tdm"
+CACHEDIR="${CONFDIR}/cache"

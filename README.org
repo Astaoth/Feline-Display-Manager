@@ -1,0 +1,5 @@
+#+Title: Feline Display Manager
+
+* Introduction
+This is a fork of TDM. It aims to improve the support of no-X environment and to display it on the login of a tty even if X is started, but without the X environments.
+
