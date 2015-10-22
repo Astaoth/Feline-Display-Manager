@@ -11,7 +11,8 @@ tdmctl: tdminit.sh tdmctl.sh header
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install ${OBJECTS} ${DESTDIR}${PREFIX}/bin/
-	install -d ${DESTDIR}${PREFIX}/share/tdm/sessions
+	install -d ${DESTDIR}${PREFIX}/share/tdm/sessionsx
+	install -d ${DESTDIR}${PREFIX}/share/tdm/extra
 	cp -Rv cfg/* ${DESTDIR}${PREFIX}/share/tdm/
 	cat WMLIST|while read NAME DEST; \
 	do \
