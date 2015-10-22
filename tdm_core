@@ -39,6 +39,11 @@ if [ -d ${EXTRA} ]; then
 			let TOTAL=$(($TOTAL+1))
 		fi
 	done
+else
+	echo "${EXTRA} doesn't exist."
+	echo "making this directory."
+	mkdir -p ${EXTRA}
+fi	
 fi
 
 if [ $TOTAL -eq 0 ]; then
@@ -57,16 +62,16 @@ tdm_text(){
 
 	local _i=0
 	if [ ${XID} -gt 0 ]; then
-		echo "List of X sessions: (default ${DEFAULTWM})"
+		echo "X sessions : "
 		while [ ${_i} -lt ${XID} ]
 		do
 			echo ${_i} ${prglist[${_i}*2+1]}
 			let _i=${_i}+1
 		done
 	fi
-	
+	echo ""
 	if [ ${XID} -lt ${TOTAL} ]; then
-		echo "others:"
+		echo "Other sessions : "
 		while [ ${_i} -lt ${TOTAL} ]
 		do
 			echo ${_i} ${prglist[${_i}*2+1]}
@@ -74,7 +79,7 @@ tdm_text(){
 		done
 	fi
 
-	echo -n "Program ID: "
+	echo -n "Program ID (default ${DEFAULTWM}) : "
 	read sid
 }
 

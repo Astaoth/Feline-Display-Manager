@@ -7,8 +7,8 @@
 VERSION=0.3.2
 
 # directory settings
-CONFDIR="$HOME/.tdm"
-SESSIONS=${CONFDIR}/sessions
+CONFDIR="$HOME/.config/fdm"
+SESSIONS=${CONFDIR}/sessionsX
 EXTRA=${CONFDIR}/extra
 SAVELAST=1
 
@@ -17,6 +17,12 @@ fallback(){
 		echo -e "\033[31;1m$1\033[0m"
 	fi
 	exec $SHELL
+}
+
+warning(){
+	if [[ -n $1 ]]; then
+		echo -e "\033[31;1m$1\033[0m"
+	fi
 }
 
 # started from startx, so start session
