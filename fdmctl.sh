@@ -1,11 +1,11 @@
 usage(){
-    echo "tdmctl init: initialize the config directory."
-    echo "tdmctl list: list available X sessions."
-    echo "tdmctl cache: list cached files."
-    echo "tdmctl check <session>: see what <session> is."
-    echo "tdmctl default [session]: show/set default X session."
-    echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
-    echo "tdmctl enable/disable <session>: enable/disable session."
+    echo "fdmctl init: initialize the config directory."
+    echo "fdmctl list: list available X sessions."
+    echo "fdmctl cache: list cached files."
+    echo "fdmctl check <session>: see what <session> is."
+    echo "fdmctl default [session]: show/set default X session."
+    echo "fdmctl add <name> <path> [X(default)/extra]: add a session."
+    echo "fdmctl enable/disable <session>: enable/disable session."
     exit
 }
 
@@ -57,7 +57,7 @@ case "$1" in
 		echo "Setting default to $2"
 		ln -sf "$CONFDIR/$EXTRA/$2" "$CONFDIR/default"
             else
-		echo "tdmctl error: $2 is not available"
+		echo "fdmctl error: $2 is not available"
             fi
 	elif[ ! -n "$4" ]
 	then
@@ -66,10 +66,10 @@ case "$1" in
 		echo "Setting default to $3"
 		ln -sf "$CONFDIR/$2/$3" "$CONFDIR/default"
             else
-		echo "tdmctl error: $2/$3 is not available"
+		echo "fdmctl error: $2/$3 is not available"
             fi
 	else
-	    echo "tdmctl error: syntaxe is tdmctl default [ [ folder ] interface ]"
+	    echo "fdmctl error: syntaxe is fdmctl default [ [ folder ] interface ]"
 	    usage
         fi
         ;;

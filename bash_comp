@@ -1,4 +1,4 @@
-_tdmctl() 
+_fdmctl() 
 {
 	local cur prev opts base
 	COMPREPLY=()
@@ -15,12 +15,12 @@ _tdmctl()
 	#
 	case "${prev}" in
 		check|default|disable)
-			local sessions=$(tdmctl list)
+			local sessions=$(fdmctl list)
 			COMPREPLY=( $(compgen -W "${sessions}" -- ${cur}) )
 			return 0
 			;;
 		enable)
-			local sessions=$(tdmctl cache)
+			local sessions=$(fdmctl cache)
 			COMPREPLY=( $(compgen -W "${sessions}" -- ${cur}) )
 			return 0
 			;;
@@ -31,4 +31,4 @@ _tdmctl()
 	COMPREPLY=($(compgen -W "${opts}" -- ${cur}))  
 	return 0
 }
-complete -F _tdmctl tdmctl
+complete -F _fdmctl fdmctl

@@ -51,14 +51,14 @@ if [ $TOTAL -eq 0 ]; then
 	fallback "No sessions found."
 fi
 
-tdm_curses(){
-	sid=$(dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
+fdm_curses(){
+	sid=$(dialog --stdout ${DEFOPT} --menu "FDM ${VERSION}" 0 0 0 ${prglist[@]})
 	[ -n "$sid" ]||fallback "Falling back to shell."
 }
 
-tdm_text(){
+fdm_text(){
 	clear
-	echo "This is TDM ${VERSION}, a tiny display manager."
+	echo "This is FDM ${VERSION}, a tiny display manager."
 	echo 'Please select a session.'
 
 	local _i=0

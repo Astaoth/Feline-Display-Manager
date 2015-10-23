@@ -1,6 +1,6 @@
-#compdef tdmctl
+#compdef fdmctl
 
-_tdmctl(){
+_fdmctl(){
 	local curcontext="$curcontext" state line
 	typeset -A opt_args
 
@@ -15,10 +15,10 @@ _tdmctl(){
 	*)
 		case $words[2] in
 		check|default|disable)
-			compadd "$@" $(tdmctl list)
+			compadd "$@" $(fdmctl list)
 			;;
 		enable)
-			compadd "$@" $(tdmctl cache)
+			compadd "$@" $(fdmctl cache)
 			;;
 		*)
 			;;
@@ -27,4 +27,4 @@ _tdmctl(){
 	esac
 }
 
-_tdmctl "$@"
+_fdmctl "$@"

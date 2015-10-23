@@ -1,7 +1,7 @@
 
 
 
-# TDM, tbk display manager, or tiny display manager,
+# FDM, tbk display manager, or tiny display manager,
 # is a session selector after login.
 # It links the starting script to default and start
 # the startx script.
@@ -22,11 +22,11 @@ warning(){
 
 # started from startx, so start session
 if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -f "${CONFDIR}/tdmexit" ]]; then
-		. "${CONFDIR}/tdmexit"
+	if [[ -f "${CONFDIR}/fdmexit" ]]; then
+		. "${CONFDIR}/fdmexit"
 	fi
-	if [[ -x "/tmp/tdmdefault" ]]; then
-		exec /tmp/tdmdefault
+	if [[ -x "/tmp/fdmdefault" ]]; then
+		exec /tmp/fdmdefault
 	else
 		exec "${CONFDIR}/default"
 	fi
@@ -40,12 +40,12 @@ pgrep X>/dev/null&&fallback 'X started.'
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
-	tdmctl init
+	fdmctl init
 fi
 
 # otherwise, run as the session chosen script
-if [[ -f "${CONFDIR}/tdminit" ]]; then
-	source "${CONFDIR}/tdminit"
+if [[ -f "${CONFDIR}/fdminit" ]]; then
+	source "${CONFDIR}/fdminit"
 fi
 
 if [[ -x "${CONFDIR}/default" ]]; then
@@ -59,24 +59,24 @@ let TOTAL=0
 xsessions=()
 
 if ! type dialog > /dev/null 2> /dev/null; then
-#no dialog program, force to use tdm_text
-	TDMUI=tdm_text
+#no dialog program, force to use fdm_text
+	FDMUI=fdm_text
 fi
 
-source tdm_core
-if [ ! "${TDMUI}" == "tdm_text" ]; then
-	TDMUI=tdm_curses
+source fdm_core
+if [ ! "${FDMUI}" == "fdm_text" ]; then
+	FDMUI=fdm_curses
 fi
-${TDMUI}
+${FDMUI}
 
-rm -f /tmp/tdmdefault
+rm -f /tmp/fdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
 	exec ${xsessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 	if [[ ${SAVELAST} -ne 0 ]]; then
 		ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
 	else
-		ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
+		ln -sf ${xsessions[${sid}]} "/tmp/fdmdefault"
 	fi
 	startx
 	logout
