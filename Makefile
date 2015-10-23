@@ -6,7 +6,15 @@ all: ${OBJECTS}
 
 tdmctl: tdminit.sh tdmctl.sh header
 	echo "PREFIX=${PREFIX}" > hprefix
-	cat header hprefix tdminit.sh tdmctl.sh > tdmctl
+	cat header hprefix variables tdminit.sh tdmctl.sh > tdmctl
+
+tdm: header tdm.sh
+	echo "PREFIX=${PREFIX}" > hprefix
+	cat header hprefix variables tdm.sh > tdm
+
+tdm_core: header tdm_core.sh
+	echo "PREFIX=${PREFIX}" > hprefix
+	cat header hprefix variables tdm_core.sh > tdm_core
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin

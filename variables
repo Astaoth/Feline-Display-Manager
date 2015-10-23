@@ -1,0 +1,18 @@
+#The software global variables are defined here
+
+VERSION=0.3.2
+
+CONFDIR="$HOME/.config/fdm"
+CACHEDIR="${CONFDIR}/cache"
+
+#X session storage
+SESSIONS=${CONFDIR}/sessionsX
+
+#Other session storage (weston, tty, etc)
+EXTRA=${CONFDIR}/extra
+
+#Default session
+EXTRA=${CONFDIR}/default
+
+#Save the latest used session as the default
+SAVELAST=1

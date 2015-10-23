@@ -1,16 +1,11 @@
-#!/bin/sh
+
+
 
 # TDM, tbk display manager, or tiny display manager,
 # is a session selector after login.
 # It links the starting script to default and start
 # the startx script.
-VERSION=0.3.2
 
-# directory settings
-CONFDIR="$HOME/.config/fdm"
-SESSIONS=${CONFDIR}/sessionsX
-EXTRA=${CONFDIR}/extra
-SAVELAST=1
 
 fallback(){
 	if [[ -n $1 ]]; then
