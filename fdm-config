@@ -15,11 +15,15 @@ CACHEDIR="${CONFDIR}/cache"
 #X session storage
 X=${CONFDIR}/X
 
-#Other session storage (weston, tty, etc)
+#Wayland session storage
+WAYLAND=${CONFDIR}/Wayland
+
+#Other session storage (tty, etc)
 EXTRA=${CONFDIR}/extra
 
-#Default session
+#Default session link
 DEFAULT=${CONFDIR}/default
 
 #Save the latest used session as the default
+#at the exception of the extra sessions
 SAVELAST=1

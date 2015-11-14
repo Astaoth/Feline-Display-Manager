@@ -65,6 +65,7 @@ else
 fi
 
 let XID=0
+let WID=0
 let TOTAL=0
 xsessions=()
 
@@ -81,23 +82,36 @@ source fdm_core
 ${UI}
 
 rm -f /tmp/fdmdefault
-if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
-	exec ${xsessions[$sid]}
-elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
-	if [[ ${SAVELAST} -ne 0 ]]; then
-		ln -sf ${xsessions[${sid}]} "${DEFAULT}"
-	else
-		ln -sf ${xsessions[${sid}]} "/tmp/fdmdefault"
-	fi
+if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $WID) ]]
+then
+    #extra session
+    exec ${xsessions[$sid]}
+elif [[ (-n $sid) && ($sid -lt $WID) && ($sid -ge $XID) ]]
+then
+    #Wayland session
+    if [[ ${SAVELAST} -ne 0 ]]
+    then
+	ln -sf ${xsessions[${sid}]} "${DEFAULT}"
+    fi
+    exec ${xsessions[$sid]}
+elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]
+then
+    #X session
+    if [[ ${SAVELAST} -ne 0 ]]; then
+	ln -sf ${xsessions[${sid}]} "${DEFAULT}"
+    else
+	ln -sf ${xsessions[${sid}]} "/tmp/fdmdefault"
+    fi
+    startx
+    logout
+else
+    #Wrong session value
+    echo "Unknown value,load default."
+    if [ -x "${DEFAULT}" ]; then
 	startx
 	logout
-else
-	echo "Unknown value,load default."
-	if [ -x "${DEFAULT}" ]; then
-		startx
-		logout
-	else
-		fallback "Session not defined,fallback."
-	fi
+    else
+	fallback "Session not defined,fallback."
+    fi
 fi
 

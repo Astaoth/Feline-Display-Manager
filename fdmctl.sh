@@ -26,12 +26,17 @@ case "$1" in
         ;;
     list)
         echo "X session list : "
-        for session in "$CONFDIR/${X}"/*; do
+        for session in ${X}/*; do
             [ -x "$session" ] && echo $(basename "$session")
         done
-        echo
+        echo ""
+	echo "Wayland session list : "
+        for session in ${WAYLAND}/*; do
+            [ -x "$session" ] && echo $(basename "$session")
+        done
+        echo ""
         echo "Other session list : "
-        for session in "$CONFDIR/$EXTRA"/*; do
+        for session in ${EXTRA}/*; do
             [ -x "$session" ] && echo $(basename "$session")
         done
         ;;
@@ -44,18 +49,22 @@ case "$1" in
     default)
         if [ ! -n "$2" ]
 	then
-            echo "Checking $(readlink "$CONFDIR/default")"
-            check $(readlink "$CONFDIR/default")
+            echo "Checking $(readlink ${DEFAULT})"
+            check $(readlink ${DEFAULT})
 	elif [ ! -n "$3" ]
 	then
-            if [ -x "$CONFDIR/${X}/$2" ]
+            if [ -x "${X}/$2" ]
 	    then
 		echo "Setting default to $2"
-		ln -sf "$CONFDIR/${X}/$2" "$CONFDIR/default"
-	    elif [ -x "$CONFDIR/$EXTRA/$2" ]
+		ln -sf "${X}/$2" "${DEFAULT}"
+	    elif [ -x "${WAYLAND}/$2" ]
 	    then
 		echo "Setting default to $2"
-		ln -sf "$CONFDIR/$EXTRA/$2" "$CONFDIR/default"
+		ln -sf "${WAYLAND}/$2" "${DEFAULT}"
+	    elif [ -x "${EXTRA}/$2" ]
+	    then
+		echo "Setting default to $2"
+		ln -sf "${EXTRA}/$2" "${DEFAULT}"
             else
 		echo "fdmctl error: $2 is not available"
             fi
@@ -64,60 +73,65 @@ case "$1" in
 	    if [ -x "$CONFDIR/$2/$3" ]
 	    then
 		echo "Setting default to $3"
-		ln -sf "$CONFDIR/$2/$3" "$CONFDIR/default"
+		ln -sf "$CONFDIR/$2/$3" "${DEFAULT}"
             else
 		echo "fdmctl error: $2/$3 is not available"
             fi
 	else
-	    echo "fdmctl error: syntaxe is fdmctl default [ [ folder ] interface ]"
+	    echo "fdmctl error: syntaxe is fdmctl default [ [ folder ] session ]"
 	    usage
         fi
         ;;
     check)
-        if [ ! -n "$2" ]; then
-            usage
+        if [ ! -n "$2" ]
+	then usage
         fi
-        FILE="$CONFDIR/${X}/$2"
-        if [ -f "$FILE" ]; then
-            check "$FILE"
+        if [ -f fi "${X}/$2" ]
+	then check "${X}/$2"
+        elif [ -f "${WAYLAND}/$2" ]
+	then check "${WAYLAND}/$2"
+	elif [ -f "${EXTRA}/$2" ]
+	then check "${EXTRA}/$2"
         else
-	    FILE="$CONFDIR/$EXTRA/$2"
-            if [ -f "$FILE" ]; then
-		check "$FILE"
-            else
-		echo "$2 not exist!"
-		exit 1
-            fi
+	    echo "$2 not exist!"
+	    exit 1
         fi
         ;;
     add)
         [ -n "$3" ]||usage
-        if [[ "$4" == "X" || "$4" == "" ]]; then
-            ln -s "$3" "${CONFDIR}/${X}/$2"
-        elif [ "$4" == "extra" ]; then
-            ln -s "$3" "${CONFDIR}/$EXTRA/$2"
-        else
-            usage
+        if [[ "$4" == "X" || "$4" == "" ]]
+	then ln -s "$3" "${X}/$2"
+	elif [ "$4" == "wayland" || "$4" == "w" ]
+	then ln -s "$3" "${WAYLAND}/$2"
+        elif [ "$4" == "extra" ]
+	then ln -s "$3" "${EXTRA}/$2"
+        else usage
         fi
         ;;
     enable)
-        if [ -f "${CACHEDIR}/X$2" ]; then
-            cp -v "${CACHEDIR}/X$2" "${CONFDIR}/${X}/$2"
+        if [ -f "${CACHEDIR}/X$2" ]
+	then cp -v "${CACHEDIR}/X$2" "${X}/$2"
         fi
-        if [ -f "${CACHEDIR}/E$2" ]; then
-            mv -v "${CACHEDIR}/E$2" "${CONFDIR}/$EXTRA/$2"
+	if [ -f "${CACHEDIR}/W$2" ]
+	then cp -v "${CACHEDIR}/W$2" "${WAYLAND}/$2"
+        fi
+        if [ -f "${CACHEDIR}/E$2" ]
+	then mv -v "${CACHEDIR}/E$2" "${EXTRA}/$2"
         fi
         ;;
     disable)
-        if [ ! -d "${CACHEDIR}" ]; then
-            mkdir -p "${CACHEDIR}"
+        if [ ! -d "${CACHEDIR}" ]
+	then mkdir -p "${CACHEDIR}"
         fi
         # backup to cache
-        if [ -f "${CONFDIR}/${X}/$2" ]; then
-            mv -v "${CONFDIR}/${X}/$2" "${CACHEDIR}/X$2"
+        if [ -f "${X}/$2" ]
+	then mv -v "${X}/$2" "${CACHEDIR}/X$2"
         fi
-        if [ -f "${CONFDIR}/$EXTRA/$2" ]; then
-            mv -v "${CONFDIR}/$EXTRA/$2" "${CONFDIR}/E$2"
+	if [ -f "${WAYLAND}/$2" ]
+	then mv -v "${WAYLAND}/$2" "${CACHEDIR}/W$2"
+        fi
+        if [ -f "${EXTRA}/$2" ]
+	then mv -v "${EXTRA}/$2" "${CACHEDIR}/E$2"
         fi
         ;;
     *)
