@@ -2,6 +2,12 @@
 
 VERSION=0.3.2
 
+#Choose between text and ncurse UI
+#If ncurse ui is choosen but the dialog libs are not available, the text UI will be used
+#UI="ncurses"
+#UI="text"
+UI="text"
+
 #User directories
 CONFDIR="$HOME/.config/fdm"
 CACHEDIR="${CONFDIR}/cache"

@@ -51,7 +51,7 @@ if [ $TOTAL -eq 0 ]; then
 	fallback "No sessions found."
 fi
 
-fdm_curses(){
+fdm_ncurses(){
 	sid=$(dialog --stdout ${DEFOPT} --menu "FDM ${VERSION}" 0 0 0 ${prglist[@]})
 	[ -n "$sid" ]||fallback "Falling back to shell."
 }

@@ -68,16 +68,17 @@ let XID=0
 let TOTAL=0
 xsessions=()
 
-if ! type dialog > /dev/null 2> /dev/null; then
-#no dialog program, force to use fdm_text
-	FDMUI=fdm_text
+
+
+if [ $UI = "ncurses" ] && [ $(type dialog 2>/dev/null) ]
+then
+    UI="fdm_ncurses"
+else
+    UI="fdm_text"
 fi
 
 source fdm_core
-if [ ! "${FDMUI}" == "fdm_text" ]; then
-	FDMUI=fdm_curses
-fi
-${FDMUI}
+${UI}
 
 rm -f /tmp/fdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
