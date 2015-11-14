@@ -1,3 +1,5 @@
 #!/bin/sh
 
+#Include variables from "config file" (actually a bash source file)
+source $(dirname $0)/fdm.cfg
 
