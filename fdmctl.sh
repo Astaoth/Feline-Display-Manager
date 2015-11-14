@@ -26,7 +26,7 @@ case "$1" in
         ;;
     list)
         echo "X session list : "
-        for session in "$CONFDIR/$SESSIONS"/*; do
+        for session in "$CONFDIR/${X}"/*; do
             [ -x "$session" ] && echo $(basename "$session")
         done
         echo
@@ -48,10 +48,10 @@ case "$1" in
             check $(readlink "$CONFDIR/default")
 	elif [ ! -n "$3" ]
 	then
-            if [ -x "$CONFDIR/$SESSIONS/$2" ]
+            if [ -x "$CONFDIR/${X}/$2" ]
 	    then
 		echo "Setting default to $2"
-		ln -sf "$CONFDIR/$SESSIONS/$2" "$CONFDIR/default"
+		ln -sf "$CONFDIR/${X}/$2" "$CONFDIR/default"
 	    elif [ -x "$CONFDIR/$EXTRA/$2" ]
 	    then
 		echo "Setting default to $2"
@@ -77,7 +77,7 @@ case "$1" in
         if [ ! -n "$2" ]; then
             usage
         fi
-        FILE="$CONFDIR/$SESSIONS/$2"
+        FILE="$CONFDIR/${X}/$2"
         if [ -f "$FILE" ]; then
             check "$FILE"
         else
@@ -93,7 +93,7 @@ case "$1" in
     add)
         [ -n "$3" ]||usage
         if [[ "$4" == "X" || "$4" == "" ]]; then
-            ln -s "$3" "${CONFDIR}/$SESSIONS/$2"
+            ln -s "$3" "${CONFDIR}/${X}/$2"
         elif [ "$4" == "extra" ]; then
             ln -s "$3" "${CONFDIR}/$EXTRA/$2"
         else
@@ -102,7 +102,7 @@ case "$1" in
         ;;
     enable)
         if [ -f "${CACHEDIR}/X$2" ]; then
-            cp -v "${CACHEDIR}/X$2" "${CONFDIR}/$SESSIONS/$2"
+            cp -v "${CACHEDIR}/X$2" "${CONFDIR}/${X}/$2"
         fi
         if [ -f "${CACHEDIR}/E$2" ]; then
             mv -v "${CACHEDIR}/E$2" "${CONFDIR}/$EXTRA/$2"
@@ -113,8 +113,8 @@ case "$1" in
             mkdir -p "${CACHEDIR}"
         fi
         # backup to cache
-        if [ -f "${CONFDIR}/$SESSIONS/$2" ]; then
-            mv -v "${CONFDIR}/$SESSIONS/$2" "${CACHEDIR}/X$2"
+        if [ -f "${CONFDIR}/${X}/$2" ]; then
+            mv -v "${CONFDIR}/${X}/$2" "${CACHEDIR}/X$2"
         fi
         if [ -f "${CONFDIR}/$EXTRA/$2" ]; then
             mv -v "${CONFDIR}/$EXTRA/$2" "${CONFDIR}/E$2"

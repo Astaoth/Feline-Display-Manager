@@ -28,7 +28,7 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	if [[ -x "/tmp/fdmdefault" ]]; then
 		exec /tmp/fdmdefault
 	else
-		exec "${CONFDIR}/default"
+		exec "${DEFAULT}"
 	fi
 fi
 
@@ -48,8 +48,8 @@ if [[ -f "${CONFDIR}/fdminit" ]]; then
 	source "${CONFDIR}/fdminit"
 fi
 
-if [[ -x "${CONFDIR}/default" ]]; then
-	SDEFAULT=$(readlink "${CONFDIR}/default")
+if [[ -x "${DEFAULT}" ]]; then
+	SDEFAULT=$(readlink "${DEFAULT}")
 else
 	SDEFAULT=
 fi
@@ -74,7 +74,7 @@ if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
 	exec ${xsessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 	if [[ ${SAVELAST} -ne 0 ]]; then
-		ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
+		ln -sf ${xsessions[${sid}]} "${DEFAULT}"
 	else
 		ln -sf ${xsessions[${sid}]} "/tmp/fdmdefault"
 	fi
@@ -82,7 +82,7 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 	logout
 else
 	echo "Unknown value,load default."
-	if [ -x "${CONFDIR}/default" ]; then
+	if [ -x "${DEFAULT}" ]; then
 		startx
 		logout
 	else
