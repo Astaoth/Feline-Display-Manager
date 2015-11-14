@@ -1,4 +1,5 @@
-PREFIX=/usr/local
+#PREFIX=/usr/local
+PREFIX=/home/alucard/Dev/fdm/TEST/
 OBJECTS=fdm fdmctl fdm_core fdm.cfg
 BINARIES=fdm fdmctl fdm_core
 DESTDIR=

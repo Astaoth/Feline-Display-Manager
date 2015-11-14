@@ -1,8 +1,9 @@
 
 
 
-# FDM, tbk display manager, or tiny display manager,
-# is a session selector after login.
+# FDM, feline display manager is a fork of
+# tdm, tbk display manager, or tiny display manager.
+# It is a session selector after login.
 # It links the starting script to default and start
 # the startx script.
 
@@ -32,11 +33,16 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	fi
 fi
 
-# check for a 'good' tty
+# check for a 'good' and true tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
-# X started, exit
-pgrep X>/dev/null&&fallback 'X started.'
+# X started, informe and continue
+# X can be started few times from different tty
+pgrep X>/dev/null&&warning 'X already started.'
+ps aux | grep "Xorg" | grep -v "grep" | while read LINE
+do
+    echo -e "\t- X started by user \"$(echo $line | tr -s ' ' | cut -d ' ' -f1)\" from tty \"$(echo $line | tr -s ' ' | cut -d ' ' -f7)\" on display \"$(echo $line | tr -s ' ' | cut -d ' ' -f14)\"."
+done
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
