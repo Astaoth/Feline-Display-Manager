@@ -1,6 +1,6 @@
 #The software global variables are defined here
 
-VERSION=0.3.2
+VERSION=alpha
 
 #Choose between text and ncurse UI
 #If ncurse ui is choosen but the dialog libs are not available, the text UI will be used
