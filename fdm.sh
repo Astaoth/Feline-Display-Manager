@@ -38,11 +38,15 @@ fi
 
 # X started, informe and continue
 # X can be started few times from different tty
-pgrep X>/dev/null&&warning 'X already started.'
-ps aux | grep "Xorg" | grep -v "grep" | while read LINE
-do
-    echo -e "\t- X started by user \"$(echo $line | tr -s ' ' | cut -d ' ' -f1)\" from tty \"$(echo $line | tr -s ' ' | cut -d ' ' -f7)\" on display \"$(echo $line | tr -s ' ' | cut -d ' ' -f14)\"."
-done
+if [ $(pgrep X) ]
+then
+    warning 'X already started.'
+    ps aux | grep "Xorg" | grep -v "grep" | while read LINE
+    do
+	echo -e "\t- X started by user \"$(echo $line | tr -s ' ' | cut -d ' ' -f1)\" from tty \"$(echo $line | tr -s ' ' | cut -d ' ' -f7)\" on display \"$(echo $line | tr -s ' ' | cut -d ' ' -f14)\"."
+    done
+    read -p "Press enter to continue ..."
+fi
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
