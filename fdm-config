@@ -2,17 +2,18 @@
 
 VERSION=0.3.2
 
+#User directories
 CONFDIR="$HOME/.config/fdm"
 CACHEDIR="${CONFDIR}/cache"
 
 #X session storage
-SESSIONS=${CONFDIR}/sessionsX
+X=${CONFDIR}/X
 
 #Other session storage (weston, tty, etc)
 EXTRA=${CONFDIR}/extra
 
 #Default session
-EXTRA=${CONFDIR}/default
+DEFAULT=${CONFDIR}/default
 
 #Save the latest used session as the default
 SAVELAST=1
