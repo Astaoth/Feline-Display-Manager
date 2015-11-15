@@ -9,28 +9,29 @@
 
 
 fallback(){
-	if [[ -n $1 ]]; then
-		echo -e "\033[31;1m$1\033[0m"
-	fi
-	exec $SHELL
+    if [[ -n $1 ]]
+    then echo -e "\033[31;1m$1\033[0m"
+    fi
+    exec $SHELL
 }
 
 warning(){
-	if [[ -n $1 ]]; then
-		echo -e "\033[31;1m$1\033[0m"
-	fi
+    if [[ -n $1 ]]
+    then echo -e "\033[31;1m$1\033[0m"
+    fi
 }
 
 # started from startx, so start session
-if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -f "${CONFDIR}/fdmexit" ]]; then
-		. "${CONFDIR}/fdmexit"
-	fi
-	if [[ -x "/tmp/fdmdefault" ]]; then
-		exec /tmp/fdmdefault
-	else
-		exec "${DEFAULT}"
-	fi
+if [[ -n $1 && $1 = "--xstart" ]]
+then
+    if [[ -f "${CONFDIR}/fdmexit" ]]
+    then . "${CONFDIR}/fdmexit"
+    fi
+    if [[ -x "/tmp/fdmdefault" ]]
+    then exec /tmp/fdmdefault
+    else
+	exec "${DEFAULT}"
+    fi
 fi
 
 # check for a 'good' and true tty
@@ -49,19 +50,13 @@ then
 fi
 
 # build confdir
-if [ ! -d "${CONFDIR}" ]; then
-	fdmctl init
+if [ ! -d "${CONFDIR}" ]
+then fdmctl init
 fi
 
 # otherwise, run as the session chosen script
-if [[ -f "${CONFDIR}/fdminit" ]]; then
-	source "${CONFDIR}/fdminit"
-fi
-
-if [[ -x "${DEFAULT}" ]]; then
-	SDEFAULT=$(readlink "${DEFAULT}")
-else
-	SDEFAULT=
+if [[ -f "${CONFDIR}/fdminit" ]]
+then source "${CONFDIR}/fdminit"
 fi
 
 let XID=0
@@ -69,13 +64,9 @@ let WID=0
 let TOTAL=0
 xsessions=()
 
-
-
 if [ $UI = "ncurses" ] && [ $(type dialog 2>/dev/null) ]
-then
-    UI="fdm_ncurses"
-else
-    UI="fdm_text"
+then UI="fdm_ncurses"
+else UI="fdm_text"
 fi
 
 source fdm_core

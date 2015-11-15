@@ -27,3 +27,6 @@ DEFAULT=${CONFDIR}/default
 #Save the latest used session as the default
 #at the exception of the extra sessions
 SAVELAST=1
+
+#Auto exec default UI without selection
+AUTOSTART=0
