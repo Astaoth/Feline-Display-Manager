@@ -10,14 +10,14 @@
 
 fallback(){
     if [[ -n $1 ]]
-    then echo -e "\033[31;1m$1\033[0m"
+    then echo -e "\033[31;1m(-) ERROR: $1\033[0m"
     fi
     exec $SHELL
 }
 
 warning(){
     if [[ -n $1 ]]
-    then echo -e "\033[31;1m$1\033[0m"
+    then echo -e "\033[31;1m/!\\ WARNING: $1\033[0m"
     fi
 }
 
@@ -44,7 +44,7 @@ then
     warning 'X already started.'
     ps aux | grep "Xorg" | grep -v "grep" | while read LINE
     do
-	echo -e "\t- X started by user \"$(echo $line | tr -s ' ' | cut -d ' ' -f1)\" from tty \"$(echo $line | tr -s ' ' | cut -d ' ' -f7)\" on display \"$(echo $line | tr -s ' ' | cut -d ' ' -f14)\"."
+	echo -e "\t- X started by user \"$(echo $LINE | tr -s ' ' | cut -d ' ' -f1)\" from tty \"$(echo $LINE | tr -s ' ' | cut -d ' ' -f7)\" on display \"$(echo $LINE | tr -s ' ' | cut -d ' ' -f14)\"."
     done
     read -p "Press enter to continue ..."
 fi

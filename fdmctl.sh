@@ -13,7 +13,8 @@ check(){
     readlink "$1" || cat "$1"
 }
 
-if [ ! -n "$1" ]; then
+if [ ! -n "$1" ]
+then
     usage
     exit
 fi
@@ -68,7 +69,7 @@ case "$1" in
             else
 		echo "fdmctl error: $2 is not available"
             fi
-	elif[ ! -n "$4" ]
+	elif [ ! -n "$4" ]
 	then
 	    if [ -x "$CONFDIR/$2/$3" ]
 	    then

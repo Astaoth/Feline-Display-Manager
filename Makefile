@@ -1,26 +1,30 @@
 #PREFIX=/usr/local
 PREFIX=/opt/fdm/
-OBJECTS=fdm fdmctl fdm_core fdm.cfg
+OBJECTS=fdm fdmctl fdm_core fdm.cfg header.tmp
 BINARIES=fdm fdmctl fdm_core
 DESTDIR=
 
 all: ${OBJECTS}
 
-fdm.cfg: fdm-config header
+header.tmp: header
+	cat header > header.tmp
+	echo "source ${PREFIX}/etc/fdm.cfg" >> header.tmp
+
+fdm.cfg: fdm-config
 	echo "#PREFIX" > fdm.cfg
 	echo "#Dont touch this variable, unless you want to move change your fdm prefix" >> fdm.cfg
 	echo "PREFIX=${PREFIX}" >> fdm.cfg
 	echo "" >> fdm.cfg
 	cat fdm-config >> fdm.cfg
 
-fdmctl: fdminit.sh fdmctl.sh header
-	cat header fdminit.sh fdmctl.sh > fdmctl
+fdmctl: fdminit.sh fdmctl.sh header.tmp
+	cat header.tmp fdminit.sh fdmctl.sh > fdmctl
 
-fdm: header fdm.sh
-	cat header fdm.sh > fdm
+fdm: header.tmp fdm.sh
+	cat header.tmp fdm.sh > fdm
 
-fdm_core: header fdm_core.sh
-	cat header fdm_core.sh > fdm_core
+fdm_core: header.tmp fdm_core.sh
+	cat header.tmp fdm_core.sh > fdm_core
 
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
@@ -48,6 +52,6 @@ uninstall:
 	rm -f /usr/share/zsh/site-functions/_fdmctl
 
 clean:
-	rm fdm.cfg fdmctl fdm fdm_core
+	rm header.tmp fdm.cfg fdmctl fdm fdm_core
 
 .PHONY: clean all install uninstall
