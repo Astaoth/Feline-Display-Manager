@@ -23,7 +23,7 @@ then
 	    xsessions[$XID]="${script}"
 	    NAME=$(basename ${script})
 	    prglist=(${prglist[@]} ${XID} ${NAME})
-	    if [ "${NAME}" == ${DEFAULTWM} ]
+	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${XID}"
 	    fi
@@ -47,7 +47,7 @@ then
 	    xsessions[$WID]="${script}"
 	    NAME=$(basename ${script})
 	    prglist=(${prglist[@]} ${WID} ${NAME})
-	    if [ "${NAME}" == ${DEFAULTWM} ]
+	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${WID}"
 	    fi
@@ -70,7 +70,7 @@ then
 	    xsessions[$TOTAL]="${script}"
 	    NAME=$(basename ${script})
 	    prglist=(${prglist[@]} ${TOTAL} ${NAME})
-	    if [ "${NAME}" == ${DEFAULTWM} ]
+	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${TOTAL}"
 	    fi
@@ -94,7 +94,7 @@ fdm_ncurses(){
 
 fdm_text(){
 	clear
-	echo "This is FDM ${VERSION}, a tiny display manager."
+	echo "This is FDM version \"${VERSION}\"."
 	echo 'Please select a session.'
 
 	local _i=0

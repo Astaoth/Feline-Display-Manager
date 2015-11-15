@@ -87,7 +87,7 @@ case "$1" in
         if [ ! -n "$2" ]
 	then usage
         fi
-        if [ -f fi "${X}/$2" ]
+        if [ -f "${X}/$2" ]
 	then check "${X}/$2"
         elif [ -f "${WAYLAND}/$2" ]
 	then check "${WAYLAND}/$2"
@@ -100,11 +100,11 @@ case "$1" in
         ;;
     add)
         [ -n "$3" ]||usage
-        if [[ "$4" == "X" || "$4" == "" ]]
+        if [[ "$4" == "X" || "$4" == "x" || "$4" == "" ]]
 	then ln -s "$3" "${X}/$2"
-	elif [ "$4" == "wayland" || "$4" == "w" ]
+	elif [ "$4" = "wayland" ] || [ "$4" = "w" ] || [ "$4" = "W" ]
 	then ln -s "$3" "${WAYLAND}/$2"
-        elif [ "$4" == "extra" ]
+        elif [ "$4" = "extra" ] || [ "$4" = "e" ] || [ "$4" = "E" ]
 	then ln -s "$3" "${EXTRA}/$2"
         else usage
         fi

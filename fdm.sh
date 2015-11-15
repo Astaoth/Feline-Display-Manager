@@ -65,12 +65,12 @@ let TOTAL=0
 xsessions=()
 
 if [ $UI = "ncurses" ] && [ $(type dialog 2>/dev/null) ]
-then UI="fdm_ncurses"
-else UI="fdm_text"
+then CUR_UI="fdm_ncurses"
+else CUR_UI="fdm_text"
 fi
 
 source fdm_core
-${UI}
+${CUR_UI}
 
 rm -f /tmp/fdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $WID) ]]
