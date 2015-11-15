@@ -1,5 +1,5 @@
 #PREFIX=/usr/local
-PREFIX=/home/alucard/Dev/fdm/TEST/
+PREFIX=/opt/fdm/
 OBJECTS=fdm fdmctl fdm_core fdm.cfg
 BINARIES=fdm fdmctl fdm_core
 DESTDIR=
@@ -28,6 +28,7 @@ install: all
 	mkdir -p ${DESTDIR}${PREFIX}/etc
 	install fdm.cfg ${DESTDIR}${PREFIX}/etc/
 	install -d ${DESTDIR}${PREFIX}/share/fdm/X
+	install -d ${DESTDIR}${PREFIX}/share/fdm/Wayland
 	install -d ${DESTDIR}${PREFIX}/share/fdm/extra
 	cp -Rv cfg/* ${DESTDIR}${PREFIX}/share/fdm/
 	cat WMLIST|while read NAME DEST; \
