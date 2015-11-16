@@ -4,4 +4,22 @@
   This is a fork of TDM. It aims to improve TDM and the support of no-X environment. It is also able to be shown even when an X session is running, it is able to start multiple X sessions, and it is more Wayland ready.
   NB : This project is NOT related to FVWM.
   
-
+* Prerequisites
+  - bash : it's a bash-based software
+  - make : for the installation
+    
+* Install
+  To build the projet, use the command "make".
+  To install FDM, use the command "sudo make install".
+  Next it is recommended to use the command "make clean".
+  
+* Configuration
+  
+* fdmctl
+  fdmctl init: initialize the user configuration directory
+  fdmctl list: lists all the available sessions
+  fdmctl cache: lists the sessions of the directory "cache"
+  fdmctl check <session>: checks which binary is used by a given session
+  fdmctl default [session]: checks or defines the default session
+  fdmctl add <name> <path> [x(default) | w[ayland] | e[xtra]]: add a new session
+  fdmctl enable/disable <session>: enables or disables a session
