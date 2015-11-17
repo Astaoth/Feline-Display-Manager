@@ -9,17 +9,34 @@
   - make : for the installation
     
 * Install
-  To build the projet, use the command "make".
-  To install FDM, use the command "sudo make install".
-  Next it is recommended to use the command "make clean".
+  In first, choose a good prefix, and eventually edit the Makefile according to your prefix choice. If you don't know which one to use, "/usr/local" is a good choice. Next build and install FDM with the following commands :
+  : make
+  : sudo make install
+  : make clean
+  And finally, please add the installed binaries, stored in ~$PREFIX/bin/~, to your path.
+
+* Uninstall
+  The easiest way to uninstall FDM is to have to Makefile used with the install. If it's the case, you will be able to uninstall FDM with the following command :
+  : sudo make uninstall
+
+  Else there are two possibilities :
+  1. FDM is installed in its own folder :
+     In this case, you will have only to delete the FDM folder.
+  2. FDM is installed in a folder used by other stuff of your OS :
+     You will have to manually delete the following files and directory : 
+     : $PREFIX/bin/fdm
+     : $PREFIX/bin/fdmctl
+     : $PREFIX/bin/fdm_core
+     : $PREFIX/etc/fdm.cfg
+     : $PREFIX/share/fdm/
   
 * Configuration
   
 * fdmctl
   fdmctl init: initialize the user configuration directory
-  fdmctl list: lists all the available sessions
-  fdmctl cache: lists the sessions of the directory "cache"
-  fdmctl check <session>: checks which binary is used by a given session
-  fdmctl default [session]: checks or defines the default session
-  fdmctl add <name> <path> [x(default) | w[ayland] | e[xtra]]: add a new session
-  fdmctl enable/disable <session>: enables or disables a session
+  fdmctl list: list all the available sessions
+  fdmctl cache: list the sessions of the directory \"cache\"
+  fdmctl check <session nale>: check which binary is used by a given session
+  fdmctl default [<session name>]: check or define the default session
+  fdmctl add <session name> <binary path> [x(default) | w[ayland] | e[xtra]]: add a new session
+  fdmctl enable/disable <session name>: enable or disable a session

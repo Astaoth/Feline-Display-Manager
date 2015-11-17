@@ -1,11 +1,11 @@
 usage(){
-    echo "fdmctl init: initialize the config directory."
-    echo "fdmctl list: list available X sessions."
-    echo "fdmctl cache: list cached files."
-    echo "fdmctl check <session>: see what <session> is."
-    echo "fdmctl default [session]: show/set default X session."
-    echo "fdmctl add <name> <path> [X(default)/extra]: add a session."
-    echo "fdmctl enable/disable <session>: enable/disable session."
+    echo "fdmctl init: initialize the user configuration directory"
+    echo "fdmctl list: list all the available sessions"
+    echo "fdmctl cache: list the sessions of the directory \"cache\""
+    echo "fdmctl check <session nale>: check which binary is used by a given session"
+    echo "fdmctl default [<session name>]: check or define the default session"
+    echo "fdmctl add <session name> <binary path> [x(default) | w[ayland] | e[xtra]]: add a new session"
+    echo "fdmctl enable/disable <session name>: enable or disable a session"
     exit
 }
 
