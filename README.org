@@ -31,6 +31,31 @@
      : $PREFIX/share/fdm/
   
 * Configuration
+  To autostart FDM each time an user connects itself to a consol next to a logging, you have to add, at the end of your ~\~/.bash_profile~ if your shell is bash, at the end of your ~\~/.zlogin if you use zsh, or at the end of your ~/etc/profile~ if you want to have it enabled for all the users of your system.
+
+** Global configuration
+  The global configuration is done in the $PREFIX/etc/fdm.cfg file.
+  - PREFIX : the prefix used to perform the FDM install. Unless you move the folder "fdm" to an other location, you should not change this variable
+  - VERSION : the current version
+  - UI : the default FDM UI. 
+    + "text" : FDM will be launched in the text mode
+    + "ncurses" : FDM will be launched in the ncurses mode
+  - CONFDIR : the user configuration directory path
+  - CACHEDIR : the user cache directory path
+  - X : the folder which will store the X sessions
+  - WAYLAND : the folder which will store the Wayland sessions
+  - EXTRA : the folder which will store the extra sessions
+  - DEFAULT : the default session
+  - SAVELAST : if "1", the default session will be the latest used session which is not registered as an extra session
+  - AUTOSTART : start the default session without showing FDM
+
+** User configuration
+   The user configuration is stored in the ~\~/.config/fdm~ directory : 
+   - fdminit : command to execute before starting FDM
+   - fdmexit : command to execute when quitting fdm, before to start the session
+   - directories ~X~, ~Wayland~ and ~extra~ : symbolic links to the session choosen by the user with fdmctl
+   - default : symbolic link to the default session. The default session can be changed by the fdmctl command. If the global option "SAVELIST" in the ~$PREFIX/etc/fdm.cfg~ file is enabled, the default session is overriden by the latest session used which is not stored in the ~\~/.config/fdm/extra~ folder
+   - cache : folder which contains the session disabled by the fdmctl command.
   
 * fdmctl
   fdmctl init: initialize the user configuration directory
