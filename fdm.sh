@@ -95,17 +95,14 @@ then
     else
 	ln -sf ${sessions[${sid}]} "/tmp/fdmdefault"
     fi
-    if [ $prglist[${sid}*2+1] = "STARTX" ]
-    then #startx
-	echo "startx"
-    else startx ${sessions[$sid]}
+    startx ${sessions[$sid]} $*
     fi
     logout
 else
     #Wrong session value
     echo "Unknown value,load default."
     if [ -x "${DEFAULT}" ]; then
-	startx
+	startx ${DEFAULT} $*
 	logout
     else
 	fallback "Session not defined,fallback."
