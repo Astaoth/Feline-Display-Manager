@@ -62,7 +62,7 @@ fi
 let XID=0
 let WID=0
 let TOTAL=0
-xsessions=()
+sessions=()
 
 if [ $UI = "ncurses" ] && [ $(type dialog 2>/dev/null) ]
 then CUR_UI="fdm_ncurses"
@@ -76,24 +76,30 @@ rm -f /tmp/fdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $WID) ]]
 then
     #extra session
-    exec ${xsessions[$sid]}
+    exec ${sessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $WID) && ($sid -ge $XID) ]]
 then
     #Wayland session
     if [[ ${SAVELAST} -ne 0 ]]
     then
-	ln -sf ${xsessions[${sid}]} "${DEFAULT}"
+	ln -sf ${sessions[${sid}]} "${DEFAULT}"	
+    else
+	ln -sf ${sessions[${sid}]} "/tmp/fdmdefault"
     fi
-    exec ${xsessions[$sid]}
+    exec ${sessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]
 then
     #X session
     if [[ ${SAVELAST} -ne 0 ]]; then
-	ln -sf ${xsessions[${sid}]} "${DEFAULT}"
+	ln -sf ${sessions[${sid}]} "${DEFAULT}"
     else
-	ln -sf ${xsessions[${sid}]} "/tmp/fdmdefault"
+	ln -sf ${sessions[${sid}]} "/tmp/fdmdefault"
     fi
-    startx
+    if [ $prglist[${sid}*2+1] = "STARTX" ]
+    then #startx
+	echo "startx"
+    else startx ${sessions[$sid]}
+    fi
     logout
 else
     #Wrong session value
