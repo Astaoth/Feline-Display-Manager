@@ -1,5 +1,5 @@
-#PREFIX=/usr/local
-PREFIX=/opt/fdm/
+PREFIX=/usr/local
+#PREFIX=/opt/fdm/
 OBJECTS=fdm fdmctl fdm_core fdm.cfg header.tmp
 BINARIES=fdm fdmctl fdm_core
 DESTDIR=
