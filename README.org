@@ -5,8 +5,9 @@
   NB : This project is NOT related to FVWM.
   
 * Prerequisites
-  - bash : it's a bash-based software
+  - bash : FDM is a bash-based software
   - make : for the installation
+  - startx : FDM uses startx in order to start the sessions
     
 * Install
   In first, choose a good prefix, and eventually edit the Makefile according to your prefix choice. If you don't know which one to use, "/usr/local" is a good choice. Next build and install FDM with the following commands :
@@ -32,6 +33,8 @@
   
 * Configuration
   To autostart FDM each time an user connects itself to a consol next to a logging, you have to add, at the end of your ~\~/.bash_profile~ if your shell is bash, at the end of your ~\~/.zlogin if you use zsh, or at the end of your ~/etc/profile~ if you want to have it enabled for all the users of your system.
+  It is possible to execute the startx with additionnal options. To send this options to the startx, you only have to give them to the call to fdm.
+  Ex : if you want to execute "startx <choosen session> -- -dpi 96" you will call "fdm -- -dpi 96"
 
 ** Global configuration
   The global configuration is done in the $PREFIX/etc/fdm.cfg file.

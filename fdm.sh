@@ -102,7 +102,9 @@ else
     #Wrong session value
     echo "Unknown value,load default."
     if [ -x "${DEFAULT}" ]; then
-	startx ${DEFAULT} $*
+	if [[ (${DEF_ID} -lt $XID) && ($DEF_ID -ge 0) ]]
+	then startx ${DEFAULT} $*
+	else ${DEFAULT}
 	logout
     else
 	fallback "Session not defined,fallback."

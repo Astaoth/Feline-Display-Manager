@@ -12,13 +12,15 @@ source /opt/fdm//etc/fdm.cfg
 # TOTAL: Number of items
 # sid : id that user selects
 
-# DEFOPt: default options
+# DEFOPt: default item to ncurse ui
+# DEF_ID: id of the default session
 # sessions[]: paths' list of the stored sessions
 # NAME: name of currently read stored session
 # # prglist[]: store the couples session ID and name of the stored sessions. 
 
 prglist=()
 DEFOPT=""
+DEF_ID=-1
 
 if [ -e "${DEFAULT}" ]
 then DEFAULTWM=$(basename $(readlink ${DEFAULT}))
@@ -37,6 +39,7 @@ then
 	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${XID}"
+		DEF_ID=${XID}
 	    fi
 	    let XID=$(($XID+1))
 	    let TOTAL=$(($TOTAL+1))
@@ -61,6 +64,7 @@ then
 	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${WID}"
+		DEF_ID=${WID}
 	    fi
 	    let WID=$(($WID+1))
 	    let TOTAL=$(($TOTAL+1))
@@ -84,6 +88,7 @@ then
 	    if [ "${NAME}" = ${DEFAULTWM} ]
 	    then
 		DEFOPT="--default-item ${TOTAL}"
+		DEF_ID=${TOTAL}
 	    fi
 	    let TOTAL=$(($TOTAL+1))
 	fi
