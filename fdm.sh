@@ -27,8 +27,8 @@ then
     if [[ -f "${CONFDIR}/fdmexit" ]]
     then . "${CONFDIR}/fdmexit"
     fi
-    if [[ -x "/tmp/fdmdefault" ]]
-    then exec /tmp/fdmdefault
+    if [[ -x "/tmp/fdm_last" ]]
+    then exec /tmp/fdm_last
     else
 	exec "${DEFAULT}"
     fi
@@ -72,7 +72,7 @@ fi
 source fdm_core
 ${CUR_UI}
 
-rm -f /tmp/fdmdefault
+rm -f /tmp/fdm_last
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $WID) ]]
 then
     #extra session
@@ -84,7 +84,7 @@ then
     then
 	ln -sf ${sessions[${sid}]} "${DEFAULT}"	
     else
-	ln -sf ${sessions[${sid}]} "/tmp/fdmdefault"
+	ln -sf ${sessions[${sid}]} "/tmp/fdm_last"
     fi
     exec ${sessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]
@@ -93,7 +93,7 @@ then
     if [[ ${SAVELAST} -ne 0 ]]; then
 	ln -sf ${sessions[${sid}]} "${DEFAULT}"
     else
-	ln -sf ${sessions[${sid}]} "/tmp/fdmdefault"
+	ln -sf ${sessions[${sid}]} "/tmp/fdm_last"
     fi
     startx ${sessions[$sid]} $*
     fi
