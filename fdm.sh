@@ -96,7 +96,6 @@ then
 	ln -sf ${sessions[${sid}]} "/tmp/fdm_last"
     fi
     startx ${sessions[$sid]} $*
-    fi
     logout
 else
     #Wrong session value
@@ -105,7 +104,8 @@ else
 	if [[ (${DEF_ID} -lt $XID) && ($DEF_ID -ge 0) ]]
 	then startx ${DEFAULT} $*
 	else ${DEFAULT}
-	logout
+	     logout
+	fi
     else
 	fallback "Session not defined,fallback."
     fi
