@@ -74,12 +74,10 @@ ${CUR_UI}
 
 rm -f /tmp/fdm_last
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $WID) ]]
-then
-    #extra session
+then #extra session
     exec ${sessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $WID) && ($sid -ge $XID) ]]
-then
-    #Wayland session
+then #Wayland session
     if [[ ${SAVELAST} -ne 0 ]]
     then
 	ln -sf ${sessions[${sid}]} "${DEFAULT}"	
@@ -88,21 +86,26 @@ then
     fi
     exec ${sessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]
-then
-    #X session
+then #X session
     if [[ ${SAVELAST} -ne 0 ]]; then
 	ln -sf ${sessions[${sid}]} "${DEFAULT}"
     else
 	ln -sf ${sessions[${sid}]} "/tmp/fdm_last"
     fi
-    startx ${sessions[$sid]} $*
+    if [[ $# -le 0 ]] #if there are parameters to send to startx, send them
+    then startx ${sessions[$sid]}
+    else startx ${sessions[$sid]} $*
     logout
-else
-    #Wrong session value
+else #Wrong session value
     echo "Unknown value,load default."
-    if [ -x "${DEFAULT}" ]; then
+    if [ -x "${DEFAULT}" ]
+    then
+	#X session
 	if [[ (${DEF_ID} -lt $XID) && ($DEF_ID -ge 0) ]]
-	then startx ${DEFAULT} $*
+	then if [[ $# -le 0 ]] #if there are parameters to send to startx, send them
+	     then startx ${DEFAULT} $*
+	     else startx ${DEFAULT}
+	#Wayland session
 	else ${DEFAULT}
 	     logout
 	fi
