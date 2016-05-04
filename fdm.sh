@@ -103,8 +103,8 @@ else #Wrong session value
 	#X session
 	if [[ (${DEF_ID} -lt $XID) && ($DEF_ID -ge 0) ]]
 	then if [[ $# -le 0 ]] #if there are parameters to send to startx, send them
-	     then startx ${DEFAULT} $*
-	     else startx ${DEFAULT}
+	     then startx ${DEFAULT} 
+	     else startx ${DEFAULT} $*
 	#Wayland session
 	else ${DEFAULT}
 	     logout
