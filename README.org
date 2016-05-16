@@ -61,10 +61,10 @@
    - cache : folder which contains the session disabled by the fdmctl command.
   
 * fdmctl
-  fdmctl init: initialize the user configuration directory
-  fdmctl list: list all the available sessions
-  fdmctl cache: list the sessions of the directory \"cache\"
-  fdmctl check <session nale>: check which binary is used by a given session
-  fdmctl default [<session name>]: check or define the default session
-  fdmctl add <session name> <binary path> [x(default) | w[ayland] | e[xtra]]: add a new session
-  fdmctl enable/disable <session name>: enable or disable a session
+  - fdmctl init: initialize the user configuration directory
+  - fdmctl list: list all the available sessions
+  - fdmctl cache: list the sessions of the directory \"cache\"
+  - fdmctl check <session nale>: check which binary is used by a given session
+  - fdmctl default [<session name>]: check or define the default session
+  - fdmctl add <session name> <binary path> [x(default) | w[ayland] | e[xtra]]: add a new session
+  - fdmctl enable/disable <session name>: enable or disable a session

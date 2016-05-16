@@ -92,9 +92,9 @@ then #X session
     else
 	ln -sf ${sessions[${sid}]} "/tmp/fdm_last"
     fi
-    if [[ $# -le 0 ]] #if there are parameters to send to startx, send them
-    then startx ${sessions[$sid]}
-    else startx ${sessions[$sid]} $*
+    if [[ $# -gt 0 ]] #if there are parameters to send to startx, send them
+    then startx ${sessions[$sid]} $*
+    else startx ${sessions[$sid]}
     logout
 else #Wrong session value
     echo "Unknown value,load default."
@@ -102,9 +102,9 @@ else #Wrong session value
     then
 	#X session
 	if [[ (${DEF_ID} -lt $XID) && ($DEF_ID -ge 0) ]]
-	then if [[ $# -le 0 ]] #if there are parameters to send to startx, send them
-	     then startx ${DEFAULT} 
-	     else startx ${DEFAULT} $*
+	then if [[ $# -gt 0 ]] #if there are parameters to send to startx, send them
+	     then startx ${DEFAULT} $*
+	     else startx ${DEFAULT}
 	#Wayland session
 	else ${DEFAULT}
 	     logout
